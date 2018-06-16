@@ -1,14 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Divider } from 'react-native-elements';
 import { material, systemWeights } from 'react-native-typography';
 
 export default class TaskUnit extends React.Component {
 
   renderTaskUnit(key, task) {
+
+    const isLeafTask = Object.keys(task.subtasks).length !== 0;
+
     return (
     <View key={key} style={styles.taskUnit}>
-      <Text style={material.title}>{task.label}</Text>
-      {Object.keys(task.subtasks).length !== 0 ?
+      <Text style={[material.title, isLeafTask ? styles.opaque : []]}>{task.label}</Text>
+      {isLeafTask ? <Divider style={styles.divider} /> : null}
+      {isLeafTask ?
         <View style={styles.taskBoard}>
         {
           Object.keys(task.subtasks).map(subtaskKey => {
@@ -54,6 +59,13 @@ const styles = StyleSheet.create({
       backgroundColor: '#4c4c4c',
       paddingBottom: 5,
       paddingLeft: 5,
-      paddingRight: 1,
+      paddingRight: 0,
     },
+    divider: {
+      marginTop: 5,
+      marginBottom: 8,
+    },
+    opaque: {
+      color: 'rgba(0, 0, 0, 0.5)',
+    }
 });
