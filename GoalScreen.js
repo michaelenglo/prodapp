@@ -4,26 +4,26 @@ import TaskUnit from './TaskUnit';
 
 
 const task = {
-  label: "mainTask",
+  label: "Throw a party",
   subtasks: {
     task1ID: {
-      label: "task1",
+      label: "Call friends",
       subtasks: {
         subtask1ID: {
-          label: "subtask1",
+          label: "Call Lucy",
           subtasks: {},
         },
       },
     },
     task2ID: {
-      label: "task1",
+      label: "Prepare for the party",
       subtasks: {
         subtask2ID: {
-          label: "subtask2",
+          label: "Buy food and drinks",
           subtasks: {},
         },
         subtask3ID: {
-          label: "subtask3",
+          label: "Buy cups and plates",
           subtasks: {},
         },
       },

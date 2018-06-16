@@ -7,7 +7,7 @@ export default class TaskUnit extends React.Component {
   renderTaskUnit(key, task) {
     return (
     <View key={key} style={styles.taskUnit}>
-      <Text style={material.title}>{task.label + "hahaha"}</Text>
+      <Text style={material.title}>{task.label}</Text>
       {Object.keys(task.subtasks).length !== 0 ?
         <View style={styles.taskBoard}>
         {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         width: 1,
       },
       shadowColor: 'black',
-      shadowOpacity: 0.4,
+      shadowOpacity: 0.8,
     },
     taskBoard: {
       borderRadius: 4,
