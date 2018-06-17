@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, ImageBackground, View } from 'react-native';
 import { Divider, Icon } from 'react-native-elements';
 import { material, human, systemWeights } from 'react-native-typography';
 import Swipeout from 'react-native-swipeout';
@@ -21,16 +21,16 @@ export default class TaskUnit extends React.Component {
           left={[checkButtonProps]} 
           backgroundColor={'rgba(0,0,0,0)'}
         >
-          <Text style={isLeafTask ? material.caption : [human.title2, systemWeights.semibold]}>{task.label}</Text>
+          <Text style={isLeafTask ? [material.caption, systemWeights.semibold] : [human.title2, systemWeights.regular]}>{task.label}</Text>
           {isLeafTask ? <Divider style={styles.divider} /> : null}
           {isLeafTask ?
-            <View style={styles.taskBoard}>
+            <ImageBackground source={require('./assets/blackbackground.png')} resizeMode="repeat" style={styles.taskBoard}>
             {
               Object.keys(task.subtasks).map(subtaskKey => {
                 return this.renderTaskUnit(subtaskKey, task.subtasks[subtaskKey]);
               })
             }
-            </View>
+            </ImageBackground>
           : null}    
         </Swipeout>
       </View>
@@ -65,8 +65,7 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.8,
     },
     taskBoard: {
-      borderRadius: 4,
-      backgroundColor: '#4c4c4c',
+      borderRadius: 5,
       paddingBottom: 5,
       paddingLeft: 5,
       paddingRight: 0,
