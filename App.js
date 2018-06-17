@@ -1,15 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Header } from 'react-native-elements';
+import { Provider } from 'react-redux';
 import { createStackNavigator } from 'react-navigation';
+import store from './store/index';
 
-import GoalScreen from './GoalScreen.js';
+import GoalScreen from './GoalScreen';
 
-export default createStackNavigator(
+const Root = createStackNavigator(
   {
     Goal: GoalScreen,
   },
   {
     initialRouteName: 'Goal',
-  }
+  },
 );
+
+const App = () => (
+  <Provider store={store}>
+    <Root />
+  </Provider>
+);
+
+export default App;

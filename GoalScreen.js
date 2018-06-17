@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, ScrollView, ImageBackground } from 'react-native';
+import { connect } from 'react-redux';
 import TaskUnit from './TaskUnit';
-
 
 const task = {
   label: 'Throw a party',
@@ -30,12 +30,10 @@ const task = {
     },
   },
 };
-
-export default class App extends React.Component {
+class GoalScreen extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state= {};
   }
 
@@ -50,6 +48,10 @@ export default class App extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  tasks: state.tasks,
+});
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -58,3 +60,5 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+export default connect(mapStateToProps, () => ({}))(GoalScreen);
