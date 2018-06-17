@@ -6,6 +6,39 @@ import Swipeout from 'react-native-swipeout';
 
 import background from './assets/blackbackground.png';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  taskUnit: {
+    width: '98%',
+    borderRadius: 4,
+    marginTop: 5,
+    backgroundColor: 'white',
+    padding: 5,
+    shadowOffset: {
+      height: 1,
+      width: 1,
+    },
+    shadowColor: 'black',
+    shadowOpacity: 0.8,
+  },
+  taskBoard: {
+    borderRadius: 5,
+    paddingBottom: 5,
+    paddingLeft: 5,
+    paddingRight: 0,
+  },
+  divider: {
+    marginTop: 1,
+    marginBottom: 8,
+  },
+  disabledTaskColor: {
+    backgroundColor: '#dddddd',
+  },
+});
+
 class TaskUnit extends React.Component {
   renderTaskUnit(key, task) {
     const isLeafTask = Object.keys(task.subtasks).length !== 0;
@@ -45,38 +78,5 @@ class TaskUnit extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  taskUnit: {
-    width: '98%',
-    borderRadius: 4,
-    marginTop: 5,
-    backgroundColor: 'white',
-    padding: 5,
-    shadowOffset: {
-      height: 1,
-      width: 1,
-    },
-    shadowColor: 'black',
-    shadowOpacity: 0.8,
-  },
-  taskBoard: {
-    borderRadius: 5,
-    paddingBottom: 5,
-    paddingLeft: 5,
-    paddingRight: 0,
-  },
-  divider: {
-    marginTop: 1,
-    marginBottom: 8,
-  },
-  disabledTaskColor: {
-    backgroundColor: '#dddddd',
-  },
-});
 
 export default TaskUnit;
