@@ -20,6 +20,7 @@ export default class TaskUnit extends React.Component {
         <Swipeout 
           left={[checkButtonProps]} 
           backgroundColor={'rgba(0,0,0,0)'}
+          autoClose
         >
           <Text style={isLeafTask ? [material.caption, systemWeights.semibold] : [human.title2, systemWeights.regular]}>{task.label}</Text>
           {isLeafTask ? <Divider style={styles.divider} /> : null}
