@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, ScrollView, ImageBackground } from 'react-native';
 import TaskUnit from './TaskUnit';
 
 
@@ -34,9 +34,11 @@ const task = {
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <TaskUnit rootKey="maintask" task={task} />
-      </View>
+      <ImageBackground source={require('./assets/dogbackground.png')} resizeMode="repeat" style={styles.woodBackground}>
+        <ScrollView style={styles.container}>
+            <TaskUnit rootKey="maintask" task={task} />
+        </ScrollView>
+      </ImageBackground>
     );
   }
 }
@@ -44,6 +46,8 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#efa963',
+  },
+  woodBackground: {
+    flex: 1,
   },
 });
