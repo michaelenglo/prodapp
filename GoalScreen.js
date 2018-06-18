@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, ScrollView, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 import TaskUnit from './TaskUnit';
@@ -44,8 +45,19 @@ class GoalScreen extends React.Component {
   }
 }
 
+GoalScreen.propTypes = {
+  tasks: PropTypes.objectOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    subtasks: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  })).isRequired,
+};
+
 const mapStateToProps = state => ({
   tasks: state.tasks,
 });
+
+// const mapDispatchToProps = dispatch => ({
+//   addSubtask: (taskKey, label) => dispatch()
+// });
 
 export default connect(mapStateToProps)(GoalScreen);
