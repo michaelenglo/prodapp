@@ -18,12 +18,18 @@ class GoalScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    this.handleDone = this.handleDone.bind(this);
+  }
+
+  handleDone(taskKey, task) {
+    this.props.markTaskAsDone(taskKey);
   }
 
   // Recursive helper function that transform normalized
   // tasks into nested task.
   transformLinearTasksToNested(linearTask, rootTaskKey) {
-    const rootTask = linearTask[rootTaskKey];
+    const rootTask = { ...linearTask[rootTaskKey] };
     if (rootTask && rootTask.subtasks) {
       const subtaskMap = {};
       rootTask.subtasks.forEach((subtaskKey) => {
@@ -35,10 +41,11 @@ class GoalScreen extends React.Component {
   }
 
   render() {
+    const nestedTask = this.transformLinearTasksToNested(this.props.tasks, 'maintask');
     return (
       <ImageBackground source={background} resizeMode="repeat" style={styles.woodBackground}>
         <ScrollView style={styles.container}>
-          <TaskUnit rootKey="maintask" task={this.transformLinearTasksToNested(this.props.tasks, 'maintask')} />
+          <TaskUnit onDone={this.handleDone} rootKey="maintask" task={nestedTask} />
         </ScrollView>
       </ImageBackground>
     );
@@ -56,8 +63,11 @@ const mapStateToProps = state => ({
   tasks: state.tasks,
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   addSubtask: (taskKey, label) => dispatch()
-// });
+const mapDispatchToProps = dispatch => ({
+  markTaskAsDone: taskKey => dispatch({
+    type: 'MARK_TASK_AS_DONE',
+    taskKey,
+  }),
+});
 
-export default connect(mapStateToProps)(GoalScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(GoalScreen);
