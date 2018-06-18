@@ -1,37 +1,43 @@
-
+import { getDecendantTasksKeys } from '../utils/utils';
 
 const seed = {
   maintask: {
+    id: 'maintask',
     label: 'Throw a party',
     subtasks: ['task1ID', 'task2ID'],
     isRootTask: true,
     done: false,
   },
   task1ID: {
+    id: 'task1ID',
     label: 'Call friends',
     subtasks: ['subtask1ID'],
     isRootTask: false,
     done: false,
   },
   subtask1ID: {
+    id: 'subtask1ID',
     label: 'Call Lucy',
     subtasks: [],
     isRootTask: false,
     done: false,
   },
   task2ID: {
+    id: 'task2ID',
     label: 'Prepare for the party',
     subtasks: ['subtask2ID', 'subtask3ID'],
     isRootTask: false,
     done: false,
   },
   subtask2ID: {
+    id: 'subtask2ID',
     label: 'Buy food and drinks',
     subtasks: [],
     isRootTask: false,
     done: false,
   },
   subtask3ID: {
+    id: 'subtask3ID',
     label: 'Buy cups and plates',
     subtasks: [],
     isRootTask: false,
@@ -48,6 +54,13 @@ const tasks = (state = seed, action) => {
         ...(state[action.taskKey]),
         done: true,
       };
+
+      getDecendantTasksKeys(state, action.taskKey).forEach((decendantKey) => {
+        newState[decendantKey] = {
+          ...(state[decendantKey]),
+          done: true,
+        };
+      });
 
       return newState;
     }

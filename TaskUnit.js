@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, ImageBackground, View } from 'react-native';
+import { Alert, StyleSheet, Text, ImageBackground, View } from 'react-native';
 import { Divider, Icon } from 'react-native-elements';
 import { material, human, systemWeights } from 'react-native-typography';
 import Swipeout from 'react-native-swipeout';
@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
 });
 
 class TaskUnit extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -53,7 +52,24 @@ class TaskUnit extends React.Component {
   }
 
   handleDoneButtonPress(key, task) {
-    this.props.onDone(key, task);
+    if (Object.keys(task.subtasks).length !== 0) {
+      Alert.alert(
+        'Resolve Subtasks',
+        'All subtasks under this task will be marked as done. Continue?',
+        [
+          { text: 'No' },
+          {
+            text: 'Yes',
+            onPress: () => {
+              this.props.onDone(key, task);
+            },
+            style: 'cancel',
+          },
+        ],
+      );
+    } else {
+      this.props.onDone(key, task);
+    }
   }
 
   renderTaskUnit(key, task) {
