@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginTop: 5,
     backgroundColor: 'white',
-    padding: 5,
     shadowOffset: {
       height: 1,
       width: 1,
@@ -34,6 +33,9 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingLeft: 5,
     paddingRight: 0,
+  },
+  taskContent: {
+    margin: 5,
   },
   divider: {
     marginTop: 1,
@@ -57,7 +59,7 @@ class TaskUnit extends React.Component {
         'Resolve Subtasks',
         'All subtasks under this task will be marked as done. Continue?',
         [
-          { text: 'No' },
+          { text: 'No', onPress: () => { this.forceUpdate(); } },
           {
             text: 'Yes',
             onPress: () => {
@@ -88,25 +90,27 @@ class TaskUnit extends React.Component {
         <Swipeout
           left={[checkButtonProps]}
           backgroundColor="rgba(0,0,0,0)"
-          autoClose
+          close
         >
-          <Text
-            style={isLeafTask ? [material.caption, systemWeights.semibold]
-            : [human.title2, systemWeights.regular]}
-          >
-            {task.label}
-          </Text>
-          {isLeafTask ? <Divider style={styles.divider} /> : null}
-          {isLeafTask ?
-            <ImageBackground source={background} resizeMode="repeat" style={styles.taskBoard}>
-              {
-              Object.keys(task.subtasks).map(subtaskKey => this.renderTaskUnit(
-                subtaskKey,
-                task.subtasks[subtaskKey],
-              ))
-            }
-            </ImageBackground>
-          : null}
+          <View style={styles.taskContent}>
+            <Text
+              style={isLeafTask ? [material.caption, systemWeights.semibold]
+              : [human.title2, systemWeights.regular]}
+            >
+              {task.label}
+            </Text>
+            {isLeafTask ? <Divider style={styles.divider} /> : null}
+            {isLeafTask ?
+              <ImageBackground source={background} resizeMode="repeat" style={styles.taskBoard}>
+                {
+                Object.keys(task.subtasks).map(subtaskKey => this.renderTaskUnit(
+                  subtaskKey,
+                  task.subtasks[subtaskKey],
+                ))
+              }
+              </ImageBackground>
+            : null}
+          </View>
         </Swipeout>
       </View>
     );
