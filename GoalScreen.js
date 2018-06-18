@@ -69,6 +69,11 @@ const mapDispatchToProps = dispatch => ({
     type: 'MARK_TASK_AS_DONE',
     taskKey,
   }),
+  createSubtask: (taskKey, label) => dispatch({
+    type: 'CREATE_SUBTASK',
+    taskKey,
+    label,
+  }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoalScreen);
