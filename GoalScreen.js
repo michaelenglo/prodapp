@@ -22,7 +22,7 @@ class GoalScreen extends React.Component {
     this.handleDone = this.handleDone.bind(this);
   }
 
-  handleDone(taskKey, task) {
+  handleDone(taskKey) {
     this.props.markTaskAsDone(taskKey);
   }
 
@@ -57,6 +57,7 @@ GoalScreen.propTypes = {
     label: PropTypes.string.isRequired,
     subtasks: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   })).isRequired,
+  markTaskAsDone: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
