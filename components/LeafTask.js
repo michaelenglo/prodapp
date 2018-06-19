@@ -27,28 +27,28 @@ const styles = StyleSheet.create({
   },
 });
 
-const TaskUnit = (props) => {
+const LeafTask = (props) => {
   const checkButtonProps = {
     backgroundColor: '#5de851',
     component: <Icon name="check" color="#fff" />,
     underlayColor: '#fff',
     onPress: () => {
-      props.onDone(props.key);
+      props.onDone(props.task.id, props.task);
     },
   };
 
   return (
-    <View style={[styles.taskUnit, props.done ? styles.taskUnitDone : []]}>
+    <View style={[styles.taskUnit, props.task.done ? styles.taskUnitDone : []]}>
       <Swipeout
         left={[checkButtonProps]}
         backgroundColor="rgba(0,0,0,0)"
-        close
+        autoClose
       >
         <View style={styles.taskContent}>
           <Text
             style={[human.title2, systemWeights.regular]}
           >
-            {props.label}
+            {props.task.label}
           </Text>
         </View>
       </Swipeout>
@@ -57,14 +57,16 @@ const TaskUnit = (props) => {
 };
 
 
-TaskUnit.propTypes = {
-  done: PropTypes.bool.isRequired,
+LeafTask.propTypes = {
+  task: PropTypes.shape({
+    done: PropTypes.bool.isRequired,
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  }).isRequired,
   onDone: PropTypes.func.isRequired,
-  key: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
 };
 
-TaskUnit.defaultProps = {
+LeafTask.defaultProps = {
 };
 
-export default TaskUnit;
+export default LeafTask;

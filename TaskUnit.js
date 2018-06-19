@@ -1,9 +1,10 @@
 import React from 'react';
 import { Alert, StyleSheet, Text, ImageBackground, View } from 'react-native';
 import { Divider, Icon } from 'react-native-elements';
-import { material, human, systemWeights } from 'react-native-typography';
+import { material, systemWeights } from 'react-native-typography';
 import Swipeout from 'react-native-swipeout';
 import PropTypes from 'prop-types';
+import LeafTask from './components/LeafTask';
 
 import background from './assets/blackbackground.png';
 
@@ -75,7 +76,7 @@ class TaskUnit extends React.Component {
   }
 
   renderTaskUnit(key, task) {
-    const isLeafTask = Object.keys(task.subtasks).length !== 0;
+    const isLeafTask = Object.keys(task.subtasks).length === 0;
     const checkButtonProps = {
       backgroundColor: '#5de851',
       component: <Icon name="check" color="#fff" />,
@@ -84,6 +85,15 @@ class TaskUnit extends React.Component {
         this.handleDoneButtonPress(key, task);
       },
     };
+
+    if (isLeafTask) {
+      return (
+        <LeafTask
+          key={key}
+          task={task}
+          onDone={this.handleDoneButtonPress}
+        />);
+    }
 
     return (
       <View key={key} style={[styles.taskUnit, task.done ? styles.taskUnitDone : []]}>
@@ -94,22 +104,19 @@ class TaskUnit extends React.Component {
         >
           <View style={styles.taskContent}>
             <Text
-              style={isLeafTask ? [material.caption, systemWeights.semibold]
-              : [human.title2, systemWeights.regular]}
+              style={[material.caption, systemWeights.semibold]}
             >
               {task.label}
             </Text>
-            {isLeafTask ? <Divider style={styles.divider} /> : null}
-            {isLeafTask ?
-              <ImageBackground source={background} resizeMode="repeat" style={styles.taskBoard}>
-                {
-                Object.keys(task.subtasks).map(subtaskKey => this.renderTaskUnit(
-                  subtaskKey,
-                  task.subtasks[subtaskKey],
-                ))
-              }
-              </ImageBackground>
-            : null}
+            <Divider style={styles.divider} />
+            <ImageBackground source={background} resizeMode="repeat" style={styles.taskBoard}>
+              {
+                  Object.keys(task.subtasks).map(subtaskKey => this.renderTaskUnit(
+                    subtaskKey,
+                    task.subtasks[subtaskKey],
+                  ))
+                }
+            </ImageBackground>
           </View>
         </Swipeout>
       </View>
