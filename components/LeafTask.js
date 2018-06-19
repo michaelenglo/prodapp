@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 7,
   },
   taskContent: {
-    margin: 5,
+    margin: 12,
   },
 });
 
