@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import { human, systemWeights } from 'react-native-typography';
-import Swipeout from 'react-native-swipeout';
 import PropTypes from 'prop-types';
+import DoubleTapTouchable from './DoubleTapTouchable';
+
 
 const styles = StyleSheet.create({
   taskUnit: {
@@ -27,34 +27,22 @@ const styles = StyleSheet.create({
   },
 });
 
-const LeafTask = (props) => {
-  const checkButtonProps = {
-    backgroundColor: '#5de851',
-    component: <Icon name="check" color="#fff" />,
-    underlayColor: '#fff',
-    onPress: () => {
-      props.onDone(props.task.id, props.task);
-    },
-  };
-
-  return (
-    <View style={[styles.taskUnit, props.task.done ? styles.taskUnitDone : []]}>
-      <Swipeout
-        left={[checkButtonProps]}
-        backgroundColor="rgba(0,0,0,0)"
-        autoClose
-      >
-        <View style={styles.taskContent}>
-          <Text
-            style={[human.title2, systemWeights.regular]}
-          >
-            {props.task.label}
-          </Text>
-        </View>
-      </Swipeout>
-    </View>
-  );
-};
+const LeafTask = props => (
+  <View style={[styles.taskUnit, props.task.done ? styles.taskUnitDone : []]}>
+    <DoubleTapTouchable
+      onSingleTap={() => { Alert.alert('hahahaha'); }}
+      onDoubleTap={() => { props.onDone(props.task.id, props.task); }}
+    >
+      <View style={styles.taskContent}>
+        <Text
+          style={[human.title2, systemWeights.regular]}
+        >
+          {props.task.label}
+        </Text>
+      </View>
+    </DoubleTapTouchable>
+  </View>
+);
 
 
 LeafTask.propTypes = {
