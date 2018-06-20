@@ -12,6 +12,12 @@ export const getDecendantTasksKeys = (state, rootTaskKey, decendantsTaskKeys = [
   return decendantsTaskKeys;
 };
 
+// Only use this function when state is not empty
+export const getParentTaskKey = (state, childTaskKey) => {
+  const parentKey = Object.values(state).find(task => task.subtasks.includes(childTaskKey));
+
+  return parentKey ? parentKey.id : null;
+};
 
 export default {
   getDecendantTasksKeys,

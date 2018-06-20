@@ -1,10 +1,9 @@
 import React from 'react';
 import { Alert, StyleSheet, Text, ImageBackground, View, TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
-import { Divider, Icon } from 'react-native-elements';
+import { Divider } from 'react-native-elements';
 import { material, systemWeights } from 'react-native-typography';
 import PropTypes from 'prop-types';
 import Collapsible from 'react-native-collapsible';
-import Swipeable from 'react-native-swipeable';
 import LeafTask from './components/LeafTask';
 
 import background from './assets/blackbackground.png';
@@ -58,6 +57,11 @@ class TaskUnit extends React.Component {
 
     this.handleDoneButtonPress = this.handleDoneButtonPress.bind(this);
     this.handleExpandCollabsible = this.handleExpandCollabsible.bind(this);
+    this.handleDeleteTask = this.handleDeleteTask.bind(this);
+  }
+
+  handleDeleteTask(id) {
+    this.props.onDelete(id);
   }
 
   handleDoneButtonPress(key, task) {
@@ -97,6 +101,7 @@ class TaskUnit extends React.Component {
           key={key}
           task={task}
           onDone={this.handleDoneButtonPress}
+          onDelete={this.handleDeleteTask}
         />);
     }
 
@@ -139,10 +144,9 @@ class TaskUnit extends React.Component {
   }
 
   render() {
-    const zIndexCounter = 0;
     return (
       <View style={styles.container}>
-        {this.renderTaskUnit(this.props.rootKey, this.props.task, zIndexCounter)}
+        {this.renderTaskUnit(this.props.rootKey, this.props.task)}
       </View>
     );
   }
@@ -150,6 +154,9 @@ class TaskUnit extends React.Component {
 
 TaskUnit.propTypes = {
   onDone: PropTypes.func,
+  rootKey: PropTypes.string.isRequired,
+  task: PropTypes.shape({}).isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 TaskUnit.defaultProps = {

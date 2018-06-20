@@ -49,6 +49,11 @@ class LeafTask extends Component {
     };
 
     this.handleToggleColapsible = this.handleToggleColapsible.bind(this);
+    this.handleDeleteTask = this.handleDeleteTask.bind(this);
+  }
+
+  handleDeleteTask() {
+    this.props.onDelete(this.props.task.id);
   }
 
   handleToggleColapsible() {
@@ -59,7 +64,7 @@ class LeafTask extends Component {
 
   render() {
     const rightButtons = [
-      <TouchableHighlight style={styles.deleteButton} onPress={Alert.alert('Delete Task', 'to be implemented')}>
+      <TouchableHighlight style={styles.deleteButton} onPress={() => { this.handleDeleteTask(); }}>
         <Icon name="delete" color="#fff" />
       </TouchableHighlight>,
     ];
@@ -106,6 +111,7 @@ LeafTask.propTypes = {
     label: PropTypes.string.isRequired,
   }).isRequired,
   onDone: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 LeafTask.defaultProps = {

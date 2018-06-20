@@ -1,4 +1,4 @@
-import { getDecendantTasksKeys } from '../utils/utils';
+import { getDecendantTasksKeys, getParentTaskKey } from '../utils/utils';
 
 const seed = {
   maintask: {
@@ -61,6 +61,29 @@ const tasks = (state = seed, action) => {
           done: true,
         };
       });
+
+      return newState;
+    }
+
+    case 'DELETE_TASK': {
+      const newState = { ...state };
+
+      const parentTaskKey = getParentTaskKey(state, action.taskKey);
+
+      // Delete all decendant tasks
+      newState[action.taskKey].subtasks.forEach((decendantKey) => {
+        delete newState[decendantKey];
+      });
+
+      // If parent task can be found
+      if (parentTaskKey !== null) {
+        // remove from parent
+        newState[parentTaskKey].subtasks = newState[parentTaskKey].subtasks.filter(subtaskKey =>
+          subtaskKey !== action.taskKey);
+      }
+
+      // delete the task
+      delete newState[action.taskKey];
 
       return newState;
     }

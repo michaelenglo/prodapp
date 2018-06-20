@@ -20,10 +20,16 @@ class GoalScreen extends React.Component {
     this.state = {};
 
     this.handleDone = this.handleDone.bind(this);
+    this.handleDeleteTask = this.handleDeleteTask.bind(this);
   }
 
   handleDone(taskKey) {
     this.props.markTaskAsDone(taskKey);
+  }
+
+  handleDeleteTask(taskKey) {
+    console.log(taskKey + " is going to be deleted");
+    this.props.deleteTask(taskKey);
   }
 
   // Recursive helper function that transform normalized
@@ -45,7 +51,7 @@ class GoalScreen extends React.Component {
     return (
       <ImageBackground source={background} resizeMode="repeat" style={styles.woodBackground}>
         <ScrollView style={styles.container}>
-          <TaskUnit onDone={this.handleDone} rootKey="maintask" task={nestedTask} />
+          <TaskUnit onDone={this.handleDone} rootKey="maintask" task={nestedTask} onDelete={this.handleDeleteTask} />
         </ScrollView>
       </ImageBackground>
     );
@@ -58,6 +64,7 @@ GoalScreen.propTypes = {
     subtasks: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   })).isRequired,
   markTaskAsDone: PropTypes.func.isRequired,
+  deleteTask: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -73,6 +80,10 @@ const mapDispatchToProps = dispatch => ({
     type: 'CREATE_SUBTASK',
     taskKey,
     label,
+  }),
+  deleteTask: taskKey => dispatch({
+    type: 'DELETE_TASK',
+    taskKey,
   }),
 });
 
