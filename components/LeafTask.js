@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { human, systemWeights } from 'react-native-typography';
 import { Divider, Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
@@ -71,7 +71,11 @@ class LeafTask extends Component {
 
     return (
       <View style={[styles.taskUnit, this.props.task.done ? styles.taskUnitDone : []]}>
-        <Swipeable rightButtons={rightButtons} >
+        <Swipeable
+          rightButtons={rightButtons}
+          onSwipeStart={() => this.props.onSwipe(true)}
+          onSwipeRelease={() => this.props.onSwipe(false)}
+        >
           <DoubleTapTouchable
             onSingleTap={this.handleToggleColapsible}
             onDoubleTap={() => { this.props.onDone(this.props.task.id, this.props.task); }}
@@ -112,6 +116,7 @@ LeafTask.propTypes = {
   }).isRequired,
   onDone: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onSwipe: PropTypes.func.isRequired,
 };
 
 LeafTask.defaultProps = {

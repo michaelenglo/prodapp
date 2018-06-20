@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, StyleSheet, Text, ImageBackground, View, TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
+import { Alert, StyleSheet, Text, ImageBackground, View, TouchableWithoutFeedback } from 'react-native';
 import { Divider } from 'react-native-elements';
 import { material, systemWeights } from 'react-native-typography';
 import PropTypes from 'prop-types';
@@ -102,6 +102,7 @@ class TaskUnit extends React.Component {
           task={task}
           onDone={this.handleDoneButtonPress}
           onDelete={this.handleDeleteTask}
+          onSwipe={this.props.onSwipe}
         />);
     }
 
@@ -157,6 +158,7 @@ TaskUnit.propTypes = {
   rootKey: PropTypes.string.isRequired,
   task: PropTypes.shape({}).isRequired,
   onDelete: PropTypes.func.isRequired,
+  onSwipe: PropTypes.func.isRequired,
 };
 
 TaskUnit.defaultProps = {

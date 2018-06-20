@@ -17,10 +17,17 @@ const styles = StyleSheet.create({
 class GoalScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isSwiping: false,
+    };
 
     this.handleDone = this.handleDone.bind(this);
     this.handleDeleteTask = this.handleDeleteTask.bind(this);
+    this.handleTaskUnitSwipe = this.handleTaskUnitSwipe.bind(this);
+  }
+
+  handleTaskUnitSwipe(isSwiping) {
+    this.setState({ isSwiping });
   }
 
   handleDone(taskKey) {
@@ -28,7 +35,6 @@ class GoalScreen extends React.Component {
   }
 
   handleDeleteTask(taskKey) {
-    console.log(taskKey + " is going to be deleted");
     this.props.deleteTask(taskKey);
   }
 
@@ -50,8 +56,8 @@ class GoalScreen extends React.Component {
     const nestedTask = this.transformLinearTasksToNested(this.props.tasks, 'maintask');
     return (
       <ImageBackground source={background} resizeMode="repeat" style={styles.woodBackground}>
-        <ScrollView style={styles.container}>
-          <TaskUnit onDone={this.handleDone} rootKey="maintask" task={nestedTask} onDelete={this.handleDeleteTask} />
+        <ScrollView style={styles.container} scrollEnabled={!this.state.isSwiping}>
+          <TaskUnit onDone={this.handleDone} rootKey="maintask" task={nestedTask} onDelete={this.handleDeleteTask} onSwipe={this.handleTaskUnitSwipe}/>
         </ScrollView>
       </ImageBackground>
     );
@@ -65,10 +71,14 @@ GoalScreen.propTypes = {
   })).isRequired,
   markTaskAsDone: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
+  ui: PropTypes.shape({
+    enableHorizontalScroll: PropTypes.bool,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({
   tasks: state.tasks,
+  ui: state.ui,
 });
 
 const mapDispatchToProps = dispatch => ({
