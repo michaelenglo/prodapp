@@ -1,9 +1,10 @@
 import React from 'react';
-import { Alert, StyleSheet, Text, ImageBackground, View } from 'react-native';
+import { Alert, StyleSheet, Text, ImageBackground, View, TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import { Divider, Icon } from 'react-native-elements';
 import { material, systemWeights } from 'react-native-typography';
-import Swipeout from 'react-native-swipeout';
 import PropTypes from 'prop-types';
+import Collapsible from 'react-native-collapsible';
+import Swipeable from 'react-native-swipeable';
 import LeafTask from './components/LeafTask';
 
 import background from './assets/blackbackground.png';
@@ -51,7 +52,12 @@ class TaskUnit extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      expanded: null,
+    };
+
     this.handleDoneButtonPress = this.handleDoneButtonPress.bind(this);
+    this.handleExpandCollabsible = this.handleExpandCollabsible.bind(this);
   }
 
   handleDoneButtonPress(key, task) {
@@ -75,16 +81,15 @@ class TaskUnit extends React.Component {
     }
   }
 
+  handleExpandCollabsible(key) {
+    const toBeExpanded = this.state.expanded === key ? null : key;
+    this.setState({
+      expanded: toBeExpanded,
+    });
+  }
+
   renderTaskUnit(key, task) {
     const isLeafTask = Object.keys(task.subtasks).length === 0;
-    const checkButtonProps = {
-      backgroundColor: '#5de851',
-      component: <Icon name="check" color="#fff" />,
-      underlayColor: '#fff',
-      onPress: () => {
-        this.handleDoneButtonPress(key, task);
-      },
-    };
 
     if (isLeafTask) {
       return (
@@ -97,36 +102,47 @@ class TaskUnit extends React.Component {
 
     return (
       <View key={key} style={[styles.taskUnit, task.done ? styles.taskUnitDone : []]}>
-        <Swipeout
-          left={[checkButtonProps]}
-          backgroundColor="rgba(0,0,0,0)"
-          close
-        >
-          <View style={styles.taskContent}>
-            <Text
-              style={[material.caption, systemWeights.semibold]}
-            >
-              {task.label}
-            </Text>
-            <Divider style={styles.divider} />
-            <ImageBackground source={background} resizeMode="repeat" style={styles.taskBoard}>
-              {
-                  Object.keys(task.subtasks).map(subtaskKey => this.renderTaskUnit(
-                    subtaskKey,
-                    task.subtasks[subtaskKey],
-                  ))
-                }
-            </ImageBackground>
-          </View>
-        </Swipeout>
+        <View style={styles.taskContent}>
+          <TouchableWithoutFeedback onPress={() => { this.handleExpandCollabsible(key); }}>
+            <View>
+              <Text
+                style={[material.caption, systemWeights.semibold]}
+              >
+                {task.label}
+              </Text>
+              <Divider style={styles.divider} />
+            </View>
+          </TouchableWithoutFeedback>
+          <Collapsible collapsed={this.state.expanded !== key}>
+            <Text>Hahahaha</Text>
+            <Text>Hahahaha</Text>
+            <Text>Hahahaha</Text>
+            <Text>Hahahaha</Text>
+            <Text>Hahahaha</Text>
+            <Text>Hahahaha</Text>
+            <Text>Hahahaha</Text>
+            <Text>Hahahaha</Text>
+            <Text>Hahahaha</Text>
+            <Text>Hahahaha</Text>
+          </Collapsible>
+          <ImageBackground source={background} resizeMode="repeat" style={styles.taskBoard}>
+            {
+              Object.keys(task.subtasks).map(subtaskKey => this.renderTaskUnit(
+                subtaskKey,
+                task.subtasks[subtaskKey],
+              ))
+            }
+          </ImageBackground>
+        </View>
       </View>
     );
   }
 
   render() {
+    const zIndexCounter = 0;
     return (
       <View style={styles.container}>
-        {this.renderTaskUnit(this.props.rootKey, this.props.task)}
+        {this.renderTaskUnit(this.props.rootKey, this.props.task, zIndexCounter)}
       </View>
     );
   }
