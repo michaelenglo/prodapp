@@ -62,6 +62,28 @@ const tasks = (state = seed, action) => {
         };
       });
 
+      let areSiblingsDone = true;
+
+      const checkIfSiblingsAreDone = (subtaskKey) => {
+        if (!newState[subtaskKey].done) {
+          areSiblingsDone = false;
+        }
+      };
+
+      let childKey = action.taskKey;
+
+      while (areSiblingsDone) {
+        const parentKey = getParentTaskKey(state, childKey);
+        if (!parentKey) break;
+        newState[parentKey].subtasks.forEach(checkIfSiblingsAreDone);
+
+        if (areSiblingsDone) {
+          newState[parentKey].done = true;
+        }
+
+        childKey = parentKey;
+      }
+
       return newState;
     }
 
