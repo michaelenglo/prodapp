@@ -15,6 +15,17 @@ const styles = StyleSheet.create({
 });
 
 class GoalScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Goal',
+    headerStyle: {
+      backgroundColor: 'rgba(45, 45, 45, 0.1)',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+
   constructor(props) {
     super(props);
     this.state = {

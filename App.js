@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStackNavigator } from 'react-navigation';
 import store from './store/index';
@@ -14,10 +15,15 @@ const Root = createStackNavigator(
   },
 );
 
-const App = () => (
-  <Provider store={store}>
-    <Root />
-  </Provider>
-);
+const App = () => [(
+  <StatusBar
+    key="status-bar"
+    backgroundColor="blue"
+    barStyle="light-content"
+  />), (
+    <Provider key="provider" store={store}>
+      <Root />
+    </Provider>
+  )];
 
 export default App;
