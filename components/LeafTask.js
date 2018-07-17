@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import Swipeable from 'react-native-swipeable';
 import Collapsible from 'react-native-collapsible';
 import DoubleTapTouchable from './DoubleTapTouchable';
+import AddSubtaskButton from './AddSubtaskButton';
+
 
 const styles = StyleSheet.create({
   taskUnit: {
@@ -29,7 +31,8 @@ const styles = StyleSheet.create({
     margin: 12,
   },
   divider: {
-    marginTop: 20,
+    marginTop: 10,
+    marginBottom: 20,
   },
   deleteButton: {
     backgroundColor: '#dd433e',
@@ -46,10 +49,13 @@ class LeafTask extends Component {
 
     this.state = {
       expanded: false,
+      addSubtaskButtonValue: '',
     };
 
     this.handleToggleColapsible = this.handleToggleColapsible.bind(this);
     this.handleDeleteTask = this.handleDeleteTask.bind(this);
+    this.handleAddSubtaskButtonChange = this.handleAddSubtaskButtonChange.bind(this);
+    this.handleAddSubtaskButtonSubmit = this.handleAddSubtaskButtonSubmit.bind(this);
   }
 
   handleDeleteTask() {
@@ -59,6 +65,18 @@ class LeafTask extends Component {
   handleToggleColapsible() {
     this.setState({
       expanded: !this.state.expanded,
+    });
+  }
+
+  handleAddSubtaskButtonChange(addSubtaskButtonValue) {
+    this.setState({
+      addSubtaskButtonValue,
+    });
+  }
+
+  handleAddSubtaskButtonSubmit() {
+    this.setState({
+      addSubtaskButtonValue: '',
     });
   }
 
@@ -88,16 +106,11 @@ class LeafTask extends Component {
               </Text>
               <Collapsible collapsed={!this.state.expanded} duration={500}>
                 <Divider style={styles.divider} />
-                <Text>Hahahaha</Text>
-                <Text>Hahahaha</Text>
-                <Text>Hahahaha</Text>
-                <Text>Hahahaha</Text>
-                <Text>Hahahaha</Text>
-                <Text>Hahahaha</Text>
-                <Text>Hahahaha</Text>
-                <Text>Hahahaha</Text>
-                <Text>Hahahaha</Text>
-                <Text>Hahahaha</Text>
+                <AddSubtaskButton
+                  onChangeText={this.handleAddSubtaskButtonChange}
+                  value={this.state.addSubtaskButtonValue}
+                  onSubmitEditing={this.handleAddSubtaskButtonSubmit}
+                />
               </Collapsible>
             </View>
           </DoubleTapTouchable>
