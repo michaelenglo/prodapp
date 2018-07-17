@@ -7,6 +7,7 @@ import Collapsible from 'react-native-collapsible';
 import LeafTask from './components/LeafTask';
 
 import background from './assets/blackbackground.png';
+import AddSubtaskButton from './components/AddSubtaskButton';
 
 const styles = StyleSheet.create({
   container: {
@@ -138,6 +139,7 @@ class TaskUnit extends React.Component {
                 task.subtasks[subtaskKey],
               ))
             }
+            <AddSubtaskButton />
           </ImageBackground>
         </View>
       </View>

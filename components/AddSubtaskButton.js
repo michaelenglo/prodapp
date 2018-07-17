@@ -4,21 +4,22 @@ import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   container: {
+    width: '98%',
     borderRadius: 4,
+    marginTop: 5,
+    backgroundColor: 'white',
     shadowOffset: {
       height: 1,
       width: 1,
     },
-    margin: 5,
-    padding: 5,
     shadowColor: 'black',
-    backgroundColor: 'white',
     shadowOpacity: 0.8,
   },
   textInputStyle: {
     padding: 0,
-    height: 30,
+    height: 25,
     fontSize: 22,
+    margin: 12,
   },
 });
 

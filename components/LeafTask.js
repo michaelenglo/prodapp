@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, TouchableHighlight } from 'react-native';
 import { human, systemWeights } from 'react-native-typography';
 import { Divider, Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
@@ -7,6 +7,7 @@ import Swipeable from 'react-native-swipeable';
 import Collapsible from 'react-native-collapsible';
 import DoubleTapTouchable from './DoubleTapTouchable';
 import AddSubtaskButton from './AddSubtaskButton';
+import background from '../assets/blackbackground.png';
 
 
 const styles = StyleSheet.create({
@@ -40,6 +41,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     paddingLeft: 25,
+  },
+  taskBoard: {
+    borderRadius: 5,
+    paddingBottom: 5,
+    paddingLeft: 5,
+    paddingRight: 0,
   },
 });
 
@@ -106,11 +113,13 @@ class LeafTask extends Component {
               </Text>
               <Collapsible collapsed={!this.state.expanded} duration={500}>
                 <Divider style={styles.divider} />
-                <AddSubtaskButton
-                  onChangeText={this.handleAddSubtaskButtonChange}
-                  value={this.state.addSubtaskButtonValue}
-                  onSubmitEditing={this.handleAddSubtaskButtonSubmit}
-                />
+                <ImageBackground source={background} resizeMode="repeat" style={styles.taskBoard}>
+                  <AddSubtaskButton
+                    onChangeText={this.handleAddSubtaskButtonChange}
+                    value={this.state.addSubtaskButtonValue}
+                    onSubmitEditing={this.handleAddSubtaskButtonSubmit}
+                  />
+                </ImageBackground>
               </Collapsible>
             </View>
           </DoubleTapTouchable>
