@@ -146,16 +146,11 @@ class TaskUnit extends React.Component {
             </View>
           </TouchableWithoutFeedback>
           <Collapsible collapsed={this.state.expanded !== key}>
-            <Text>Hahahaha</Text>
-            <Text>Hahahaha</Text>
-            <Text>Hahahaha</Text>
-            <Text>Hahahaha</Text>
-            <Text>Hahahaha</Text>
-            <Text>Hahahaha</Text>
-            <Text>Hahahaha</Text>
-            <Text>Hahahaha</Text>
-            <Text>Hahahaha</Text>
-            <Text>Hahahaha</Text>
+            <Text
+              style={material.caption}
+            >
+              Subtasks:
+            </Text>
           </Collapsible>
           <ImageBackground source={background} resizeMode="repeat" style={styles.taskBoard}>
             {
