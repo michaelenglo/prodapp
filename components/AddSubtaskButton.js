@@ -46,7 +46,6 @@ class AddSubtaskButton extends Component {
             value={this.props.value}
             onChangeText={this.props.onChangeText}
             onSubmitEditing={this.props.onSubmitEditing}
-            blurOnSubmit={false}
             enablesReturnKeyAutomatically
           />
         </View>

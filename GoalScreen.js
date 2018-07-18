@@ -73,7 +73,12 @@ class GoalScreen extends React.Component {
     const nestedTask = this.transformLinearTasksToNested(this.props.tasks, 'maintask');
     return (
       <ImageBackground source={background} resizeMode="repeat" style={styles.woodBackground}>
-        <KeyboardAwareScrollView style={styles.container} scrollEnabled={!this.state.isSwiping}>
+        <KeyboardAwareScrollView
+          style={styles.container}
+          scrollEnabled={!this.state.isSwiping}
+          enableResetScrollToCoords={false}
+          keyboardOpeningTime={100}
+        >
           <TaskUnit
             onDone={this.handleDone}
             rootKey="maintask"
