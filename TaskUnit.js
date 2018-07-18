@@ -93,6 +93,7 @@ class TaskUnit extends React.Component {
     const toBeExpanded = this.state.expanded === key ? null : key;
     this.setState({
       expanded: toBeExpanded,
+      addSubtaskButtonValue: '',
     });
   }
 
@@ -104,7 +105,6 @@ class TaskUnit extends React.Component {
   }
 
   handleAddSubtaskButtonSubmit(taskKey) {
-    console.log('hahaha');
     this.props.onAdd(taskKey, this.state.addSubtaskButtonValue);
     this.setState({
       addSubtaskButtonValue: '',
