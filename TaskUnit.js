@@ -159,13 +159,12 @@ class TaskUnit extends React.Component {
                 task.subtasks[subtaskKey],
               ))
             }
-            {this.state.expanded === key
-            ? <AddSubtaskButton
+            <AddSubtaskButton
+              expanded={this.state.expanded === key}
               onChangeText={this.handleAddSubtaskButtonChange}
               value={this.state.addSubtaskButtonValue}
               onSubmitEditing={() => this.handleAddSubtaskButtonSubmit(key)}
             />
-            : null}
           </ImageBackground>
         </View>
       </View>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
 import PropTypes from 'prop-types';
+import Collapsible from 'react-native-collapsible';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -35,18 +37,20 @@ class AddSubtaskButton extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <TextInput
-          placeholder="Add Subtask"
-          underlineColorAndroid="rgba(0,0,0,0)"
-          style={styles.textInputStyle}
-          value={this.props.value}
-          onChangeText={this.props.onChangeText}
-          onSubmitEditing={this.props.onSubmitEditing}
-          blurOnSubmit={false}
-          enablesReturnKeyAutomatically
-        />
-      </View>
+      <Collapsible collapsed={!this.props.expanded}>
+        <View style={styles.container}>
+          <TextInput
+            placeholder="Add Subtask"
+            underlineColorAndroid="rgba(0,0,0,0)"
+            style={styles.textInputStyle}
+            value={this.props.value}
+            onChangeText={this.props.onChangeText}
+            onSubmitEditing={this.props.onSubmitEditing}
+            blurOnSubmit={false}
+            enablesReturnKeyAutomatically
+          />
+        </View>
+      </Collapsible>
     );
   }
 }
@@ -56,9 +60,11 @@ AddSubtaskButton.propTypes = {
   value: PropTypes.string,
   onChangeText: PropTypes.func,
   onSubmitEditing: PropTypes.func,
+  expanded: PropTypes.bool,
 };
 
 AddSubtaskButton.defaultProps = {
+  expanded: true,
   value: '',
   onChangeText: () => {},
   onSubmitEditing: () => {},

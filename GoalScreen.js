@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, ScrollView, ImageBackground } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { StyleSheet, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 import TaskUnit from './TaskUnit';
 import background from './assets/dogbackground.png';
@@ -72,7 +73,7 @@ class GoalScreen extends React.Component {
     const nestedTask = this.transformLinearTasksToNested(this.props.tasks, 'maintask');
     return (
       <ImageBackground source={background} resizeMode="repeat" style={styles.woodBackground}>
-        <ScrollView style={styles.container} scrollEnabled={!this.state.isSwiping}>
+        <KeyboardAwareScrollView style={styles.container} scrollEnabled={!this.state.isSwiping}>
           <TaskUnit
             onDone={this.handleDone}
             rootKey="maintask"
@@ -81,7 +82,7 @@ class GoalScreen extends React.Component {
             onSwipe={this.handleTaskUnitSwipe}
             onAdd={this.handleAddTask}
           />
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </ImageBackground>
     );
   }
