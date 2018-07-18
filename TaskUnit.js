@@ -122,6 +122,8 @@ class TaskUnit extends React.Component {
           onDone={this.handleDoneButtonPress}
           onDelete={this.handleDeleteTask}
           onSwipe={this.props.onSwipe}
+          expanded={this.state.expanded === key}
+          onToggleCollapsible={() => this.handleExpandCollabsible(key)}
           addSubtaskButtonProps={{
             onChangeText: this.handleAddSubtaskButtonChange,
             value: this.state.addSubtaskButtonValue,
@@ -133,7 +135,7 @@ class TaskUnit extends React.Component {
     return (
       <View key={key} style={[styles.taskUnit, task.done ? styles.taskUnitDone : []]}>
         <View style={styles.taskContent}>
-          <TouchableWithoutFeedback onPress={() => { this.handleExpandCollabsible(key); }}>
+          <TouchableWithoutFeedback onPress={() => this.handleExpandCollabsible(key)}>
             <View>
               <Text
                 style={[material.caption, systemWeights.semibold]}

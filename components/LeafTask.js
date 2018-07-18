@@ -89,7 +89,7 @@ class LeafTask extends Component {
           onSwipeRelease={() => this.props.onSwipe(false)}
         >
           <DoubleTapTouchable
-            onSingleTap={this.handleToggleColapsible}
+            onSingleTap={this.props.onToggleCollapsible}
             onDoubleTap={() => { this.props.onDone(this.props.task.id, this.props.task); }}
           >
             <View style={styles.taskContent}>
@@ -98,7 +98,7 @@ class LeafTask extends Component {
               >
                 {this.props.task.label}
               </Text>
-              <Collapsible collapsed={!this.state.expanded} duration={500}>
+              <Collapsible collapsed={!this.props.expanded} duration={500}>
                 <Divider style={styles.divider} />
                 <ImageBackground source={background} resizeMode="repeat" style={styles.taskBoard}>
                   <AddSubtaskButton
@@ -131,9 +131,13 @@ LeafTask.propTypes = {
     value: PropTypes.string.isRequired,
     onSubmitEditing: PropTypes.func.isRequired,
   }),
+  onToggleCollapsible: PropTypes.func,
+  expanded: PropTypes.bool,
 };
 
 LeafTask.defaultProps = {
+  expanded: true,
+  onToggleCollapsible: () => {},
   addSubtaskButtonProps: {
     onChangeText: () => {},
     value: '',
