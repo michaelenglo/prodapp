@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
   taskUnitDone: {
     borderColor: '#5de851',
-    borderLeftWidth: 7,
+    borderLeftWidth: 4,
   },
   taskBoard: {
     borderRadius: 5,
