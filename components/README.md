@@ -5,4 +5,4 @@ Prodapp is a simple mobile application that is intended to help you log your tas
 
 ## Features:
 
-- 
+- Remove input when task is already done.
