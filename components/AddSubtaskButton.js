@@ -40,7 +40,7 @@ class AddSubtaskButton extends Component {
       <Collapsible collapsed={!this.props.expanded}>
         <View style={styles.container}>
           <TextInput
-            placeholder="Add Subtask"
+            placeholder={`Add Subtask to ${this.props.taskName}`}
             underlineColorAndroid="rgba(0,0,0,0)"
             style={styles.textInputStyle}
             value={this.props.value}
@@ -60,11 +60,13 @@ AddSubtaskButton.propTypes = {
   onChangeText: PropTypes.func,
   onSubmitEditing: PropTypes.func,
   expanded: PropTypes.bool,
+  taskName: PropTypes.string,
 };
 
 AddSubtaskButton.defaultProps = {
   expanded: true,
   value: '',
+  taskName: '',
   onChangeText: () => {},
   onSubmitEditing: () => {},
 };

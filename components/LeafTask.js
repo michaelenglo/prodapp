@@ -105,6 +105,7 @@ class LeafTask extends Component {
                     onChangeText={addSubtaskButtonProps.onChangeText}
                     value={addSubtaskButtonProps.value}
                     onSubmitEditing={addSubtaskButtonProps.onSubmitEditing}
+                    taskName={this.props.task.label}
                   />
                 </ImageBackground>
               </Collapsible>

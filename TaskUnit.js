@@ -164,6 +164,7 @@ class TaskUnit extends React.Component {
               onChangeText={this.handleAddSubtaskButtonChange}
               value={this.state.addSubtaskButtonValue}
               onSubmitEditing={() => this.handleAddSubtaskButtonSubmit(key)}
+              taskName={task.label}
             />
           </ImageBackground>
         </View>
