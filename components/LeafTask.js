@@ -56,13 +56,10 @@ class LeafTask extends Component {
 
     this.state = {
       expanded: false,
-      addSubtaskButtonValue: '',
     };
 
     this.handleToggleColapsible = this.handleToggleColapsible.bind(this);
     this.handleDeleteTask = this.handleDeleteTask.bind(this);
-    this.handleAddSubtaskButtonChange = this.handleAddSubtaskButtonChange.bind(this);
-    this.handleAddSubtaskButtonSubmit = this.handleAddSubtaskButtonSubmit.bind(this);
   }
 
   handleDeleteTask() {
@@ -75,19 +72,9 @@ class LeafTask extends Component {
     });
   }
 
-  handleAddSubtaskButtonChange(addSubtaskButtonValue) {
-    this.setState({
-      addSubtaskButtonValue,
-    });
-  }
-
-  handleAddSubtaskButtonSubmit() {
-    this.setState({
-      addSubtaskButtonValue: '',
-    });
-  }
-
   render() {
+    const { addSubtaskButtonProps } = this.props;
+
     const rightButtons = [
       <TouchableHighlight style={styles.deleteButton} onPress={() => { this.handleDeleteTask(); }}>
         <Icon name="delete" color="#fff" />
@@ -115,9 +102,9 @@ class LeafTask extends Component {
                 <Divider style={styles.divider} />
                 <ImageBackground source={background} resizeMode="repeat" style={styles.taskBoard}>
                   <AddSubtaskButton
-                    onChangeText={this.handleAddSubtaskButtonChange}
-                    value={this.state.addSubtaskButtonValue}
-                    onSubmitEditing={this.handleAddSubtaskButtonSubmit}
+                    onChangeText={addSubtaskButtonProps.onChangeText}
+                    value={addSubtaskButtonProps.value}
+                    onSubmitEditing={addSubtaskButtonProps.onSubmitEditing}
                   />
                 </ImageBackground>
               </Collapsible>
@@ -139,9 +126,19 @@ LeafTask.propTypes = {
   onDone: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onSwipe: PropTypes.func.isRequired,
+  addSubtaskButtonProps: PropTypes.shape({
+    onChangeText: PropTypes.func.isRequired,
+    value: PropTypes.string.isRequired,
+    onSubmitEditing: PropTypes.func.isRequired,
+  }),
 };
 
 LeafTask.defaultProps = {
+  addSubtaskButtonProps: {
+    onChangeText: () => {},
+    value: '',
+    onSubmitEditing: () => {},
+  },
 };
 
 export default LeafTask;

@@ -54,11 +54,14 @@ class TaskUnit extends React.Component {
 
     this.state = {
       expanded: null,
+      addSubtaskButtonValue: '',
     };
 
     this.handleDoneButtonPress = this.handleDoneButtonPress.bind(this);
     this.handleExpandCollabsible = this.handleExpandCollabsible.bind(this);
     this.handleDeleteTask = this.handleDeleteTask.bind(this);
+    this.handleAddSubtaskButtonChange = this.handleAddSubtaskButtonChange.bind(this);
+    this.handleAddSubtaskButtonSubmit = this.handleAddSubtaskButtonSubmit.bind(this);
   }
 
   handleDeleteTask(id) {
@@ -93,6 +96,21 @@ class TaskUnit extends React.Component {
     });
   }
 
+
+  handleAddSubtaskButtonChange(addSubtaskButtonValue) {
+    this.setState({
+      addSubtaskButtonValue,
+    });
+  }
+
+  handleAddSubtaskButtonSubmit(taskKey) {
+    console.log('hahaha');
+    this.props.onAdd(taskKey, this.state.addSubtaskButtonValue);
+    this.setState({
+      addSubtaskButtonValue: '',
+    });
+  }
+
   renderTaskUnit(key, task) {
     const isLeafTask = Object.keys(task.subtasks).length === 0;
 
@@ -104,6 +122,11 @@ class TaskUnit extends React.Component {
           onDone={this.handleDoneButtonPress}
           onDelete={this.handleDeleteTask}
           onSwipe={this.props.onSwipe}
+          addSubtaskButtonProps={{
+            onChangeText: this.handleAddSubtaskButtonChange,
+            value: this.state.addSubtaskButtonValue,
+            onSubmitEditing: () => this.handleAddSubtaskButtonSubmit(key),
+          }}
         />);
     }
 
@@ -139,7 +162,13 @@ class TaskUnit extends React.Component {
                 task.subtasks[subtaskKey],
               ))
             }
-            <AddSubtaskButton />
+            {this.state.expanded === key
+            ? <AddSubtaskButton
+              onChangeText={this.handleAddSubtaskButtonChange}
+              value={this.state.addSubtaskButtonValue}
+              onSubmitEditing={() => this.handleAddSubtaskButtonSubmit(key)}
+            />
+            : null}
           </ImageBackground>
         </View>
       </View>
@@ -161,6 +190,7 @@ TaskUnit.propTypes = {
   task: PropTypes.shape({}).isRequired,
   onDelete: PropTypes.func.isRequired,
   onSwipe: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
 };
 
 TaskUnit.defaultProps = {

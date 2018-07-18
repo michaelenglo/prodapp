@@ -1,3 +1,4 @@
+import shortid from 'short-uuid';
 import { getDecendantTasksKeys, getParentTaskKey } from '../utils/utils';
 
 const seed = {
@@ -106,6 +107,24 @@ const tasks = (state = seed, action) => {
 
       // delete the task
       delete newState[action.taskKey];
+
+      return newState;
+    }
+
+    case 'CREATE_SUBTASK': {
+      const newState = { ...state };
+
+      const newId = `task-${shortid.uuid()}`;
+
+      newState[newId] = {
+        id: newId,
+        label: action.label,
+        subtasks: [],
+        isRootTask: false,
+        done: false,
+      };
+
+      newState[action.taskKey].subtasks.push(newId);
 
       return newState;
     }

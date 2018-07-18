@@ -6,8 +6,10 @@ const styles = StyleSheet.create({
   container: {
     width: '98%',
     borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#fcfcfc',
     marginTop: 5,
-    backgroundColor: 'white',
+    backgroundColor: '#ededed',
     shadowOffset: {
       height: 1,
       width: 1,
@@ -42,6 +44,7 @@ class AddSubtaskButton extends Component {
           onChangeText={this.props.onChangeText}
           onSubmitEditing={this.props.onSubmitEditing}
           blurOnSubmit={false}
+          enablesReturnKeyAutomatically
         />
       </View>
     );

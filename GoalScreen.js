@@ -35,10 +35,15 @@ class GoalScreen extends React.Component {
     this.handleDone = this.handleDone.bind(this);
     this.handleDeleteTask = this.handleDeleteTask.bind(this);
     this.handleTaskUnitSwipe = this.handleTaskUnitSwipe.bind(this);
+    this.handleAddTask = this.handleAddTask.bind(this);
   }
 
   handleTaskUnitSwipe(isSwiping) {
     this.setState({ isSwiping });
+  }
+
+  handleAddTask(taskKey, taskLabel) {
+    this.props.createSubtask(taskKey, taskLabel);
   }
 
   handleDone(taskKey) {
@@ -68,7 +73,14 @@ class GoalScreen extends React.Component {
     return (
       <ImageBackground source={background} resizeMode="repeat" style={styles.woodBackground}>
         <ScrollView style={styles.container} scrollEnabled={!this.state.isSwiping}>
-          <TaskUnit onDone={this.handleDone} rootKey="maintask" task={nestedTask} onDelete={this.handleDeleteTask} onSwipe={this.handleTaskUnitSwipe}/>
+          <TaskUnit
+            onDone={this.handleDone}
+            rootKey="maintask"
+            task={nestedTask}
+            onDelete={this.handleDeleteTask}
+            onSwipe={this.handleTaskUnitSwipe}
+            onAdd={this.handleAddTask}
+          />
         </ScrollView>
       </ImageBackground>
     );
@@ -85,6 +97,7 @@ GoalScreen.propTypes = {
   ui: PropTypes.shape({
     enableHorizontalScroll: PropTypes.bool,
   }).isRequired,
+  createSubtask: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
